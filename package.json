@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/mcp-http-server.js",
+    "start": "node dist/debug-server.js",
     "start:stdio": "node dist/index.js",
     "start:http": "node dist/mcp-http-server.js",
     "dev": "ts-node --esm src/index.ts",

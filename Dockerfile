@@ -31,5 +31,5 @@ COPY --from=builder /app/dist ./dist
 # Expose port for HTTP server
 EXPOSE 3000
 
-# Start the HTTP MCP server
-CMD ["node", "dist/mcp-http-server.js"]
+# Start the debug HTTP MCP server
+CMD ["node", "dist/debug-server.js"]
