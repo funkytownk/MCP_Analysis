@@ -3,4 +3,6 @@ build:
   dockerfile: "Dockerfile"
   dockerBuildPath: "."
 startCommand:
-  type: "stdio"
+  type: "http"
+  port: 3000
+  path: "/sse"

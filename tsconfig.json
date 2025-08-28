@@ -16,7 +16,8 @@
     "noEmit": false
   },
   "include": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/http-server.ts"
   ],
   "exclude": [
     "node_modules",

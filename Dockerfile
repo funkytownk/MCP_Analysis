@@ -12,5 +12,8 @@ RUN npm ci --only=production
 COPY . .
 RUN npm run build
 
-# Start the MCP server
-CMD ["node", "dist/index.js"]
+# Expose port for HTTP server
+EXPOSE 3000
+
+# Start the HTTP MCP server
+CMD ["node", "dist/http-server.js"]
