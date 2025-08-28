@@ -7,7 +7,7 @@
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import {
   CallToolRequestSchema,
@@ -35,12 +35,12 @@ app.use(cors());
 app.use(express.json());
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', service: 'goldira-analysis-mcp' });
 });
 
 // SSE endpoint for MCP
-app.get('/sse', async (req, res) => {
+app.get('/sse', async (req: Request, res: Response) => {
   console.log('SSE connection established');
   
   // Set SSE headers
@@ -182,7 +182,7 @@ app.get('/sse', async (req, res) => {
 });
 
 // POST endpoint for direct tool calls (alternative to SSE)
-app.post('/analyze', async (req, res) => {
+app.post('/analyze', async (req: Request, res: Response) => {
   try {
     const validatedArgs = AnalyzeTranscriptSchema.parse(req.body);
     const result = generateAnalysisInstructions(validatedArgs);
