@@ -111,30 +111,76 @@ function generateStrategicRecommendations(transcript: string): string {
   return prompts.join('\n') + '\n\nTranscript to analyze:\n' + transcript.slice(0, 2000) + '...';
 }
 
-// Health endpoint
+// Enhanced health endpoint for Smithery compatibility
 app.get('/health', (req: Request, res: Response) => {
-  res.json({ status: 'healthy' });
+  const healthStatus = {
+    status: 'healthy',
+    server: 'goldira-analysis-mcp',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+    mcp: {
+      protocol: '2024-11-05',
+      transport: 'http',
+      capabilities: {
+        tools: true,
+        resources: false,
+        prompts: false
+      }
+    },
+    endpoints: {
+      health: '/health',
+      mcp: '/mcp'
+    },
+    tools: [
+      {
+        name: 'analyze_goldira_transcript',
+        description: 'Analyze Gold IRA sales call transcripts through 6 specialized prompts'
+      }
+    ]
+  };
+  
+  console.log(`Health check requested from ${req.ip} at ${new Date().toISOString()}`);
+  res.json(healthStatus);
 });
 
 // MCP HTTP endpoint - handles JSON-RPC over HTTP
 app.post('/mcp', async (req: Request, res: Response) => {
   const { method, params, id } = req.body;
+  const startTime = Date.now();
   
-  console.log(`MCP Request: ${method} (ID: ${id})`);
+  console.log(`[${new Date().toISOString()}] MCP Request: ${method} (ID: ${id})`, {
+    method,
+    params: params ? JSON.stringify(params).substring(0, 200) : 'none',
+    userAgent: req.get('User-Agent'),
+    contentType: req.get('Content-Type'),
+    contentLength: req.get('Content-Length')
+  });
   
   try {
     let result;
     
     switch (method) {
       case 'initialize':
+        // Validate initialize parameters
+        if (!params || typeof params !== 'object') {
+          throw new Error('Initialize requires parameters object');
+        }
+        
+        const { protocolVersion, capabilities, clientInfo } = params;
+        console.log('Initialize request:', { protocolVersion, clientInfo });
+        
         result = {
           protocolVersion: "2024-11-05",
           capabilities: {
-            tools: {}
+            tools: {},
+            resources: {},
+            prompts: {}
           },
           serverInfo: {
             name: "goldira-analysis-mcp",
-            version: "1.0.0"
+            version: "1.0.0",
+            description: "Gold IRA sales call transcript analysis through 6 specialized prompts",
+            homepage: "https://github.com/the-funky-1/MCP_Analysis"
           }
         };
         break;
@@ -220,18 +266,33 @@ ${analyses.overallCallQuality}
         throw new Error(`Unknown method: ${method}`);
     }
     
+    const duration = Date.now() - startTime;
+    console.log(`[${new Date().toISOString()}] MCP Response: ${method} (ID: ${id}) - SUCCESS (${duration}ms)`);
     res.json({ jsonrpc: "2.0", id, result });
     
   } catch (error) {
-    console.error(`MCP Error:`, error);
-    res.json({
+    const duration = Date.now() - startTime;
+    console.error(`[${new Date().toISOString()}] MCP Error: ${method} (ID: ${id}) - FAILED (${duration}ms)`, {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      method,
+      params: params ? JSON.stringify(params).substring(0, 100) : 'none'
+    });
+    
+    const errorResponse = {
       jsonrpc: "2.0",
       id,
       error: {
         code: -32603,
-        message: error instanceof Error ? error.message : 'Internal error'
+        message: error instanceof Error ? error.message : 'Internal error',
+        data: {
+          method,
+          timestamp: new Date().toISOString()
+        }
       }
-    });
+    };
+    
+    res.json(errorResponse);
   }
 });
 
@@ -245,15 +306,48 @@ app.all('*', (req: Request, res: Response) => {
 });
 
 const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+console.log('='.repeat(50));
+console.log('🚀 Starting Gold IRA Analysis MCP Server');
+console.log('='.repeat(50));
+console.log(`Environment: ${NODE_ENV}`);
+console.log(`Node Version: ${process.version}`);
+console.log(`Platform: ${process.platform}`);
+console.log(`Memory Usage: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`);
+console.log(`Timestamp: ${new Date().toISOString()}`);
+console.log('-'.repeat(50));
 
 app.listen(PORT, () => {
-  console.log(`Minimal MCP Server running on port ${PORT}`);
-  console.log(`Health: http://localhost:${PORT}/health`);
-  console.log(`MCP: http://localhost:${PORT}/mcp`);
+  console.log(`✅ MCP Server ready on port ${PORT}`);
+  console.log(`📋 Health: http://localhost:${PORT}/health`);
+  console.log(`🔧 MCP: http://localhost:${PORT}/mcp`);
+  console.log(`🎯 Tools: analyze_goldira_transcript (6-prompt analysis)`);
+  console.log(`📊 Capabilities: tools=true, resources=false, prompts=false`);
+  console.log('='.repeat(50));
+  console.log('🟢 Server ready for MCP requests');
+  console.log('='.repeat(50));
 });
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('Server shutting down gracefully...');
+// Enhanced shutdown handling
+const gracefulShutdown = (signal: string) => {
+  console.log(`\n⚠️  Received ${signal}, starting graceful shutdown...`);
+  console.log(`📊 Final memory usage: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`);
+  console.log(`⏰ Uptime: ${Math.round(process.uptime())}s`);
+  console.log('👋 Server shutting down gracefully...');
   process.exit(0);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Error handling
+process.on('uncaughtException', (error) => {
+  console.error('💥 Uncaught Exception:', error);
+  gracefulShutdown('UNCAUGHT_EXCEPTION');
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
+  gracefulShutdown('UNHANDLED_REJECTION');
 });
