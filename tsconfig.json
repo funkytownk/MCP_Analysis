@@ -22,7 +22,8 @@
     "src/debug-server.ts",
     "src/minimal-server.ts",
     "src/smithery-server.ts",
-    "src/mcp-over-http-server.ts"
+    "src/mcp-over-http-server.ts",
+    "src/smithery-cli-server.ts"
   ],
   "exclude": [
     "node_modules",
