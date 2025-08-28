@@ -119,7 +119,7 @@ app.get('/health', (req: Request, res: Response) => {
     version: '1.0.0',
     timestamp: new Date().toISOString(),
     mcp: {
-      protocol: '2024-11-05',
+      protocol: '2025-06-18',
       transport: 'http',
       capabilities: {
         tools: true,
@@ -141,6 +141,29 @@ app.get('/health', (req: Request, res: Response) => {
   
   console.log(`Health check requested from ${req.ip} at ${new Date().toISOString()}`);
   res.json(healthStatus);
+});
+
+// MCP Config Discovery endpoint (/.well-known/mcp-config)
+app.get('/.well-known/mcp-config', (req: Request, res: Response) => {
+  const mcpConfig = {
+    protocol: "mcp",
+    version: "2025-06-18",
+    transport: "http",
+    endpoint: "/mcp",
+    capabilities: {
+      tools: true,
+      resources: false,
+      prompts: false
+    },
+    server: {
+      name: "goldira-analysis-mcp",
+      version: "1.0.0",
+      description: "Gold IRA sales call transcript analysis through 6 specialized prompts"
+    }
+  };
+  
+  console.log(`MCP Config discovery requested from ${req.ip}`);
+  res.json(mcpConfig);
 });
 
 // MCP HTTP endpoint - handles JSON-RPC over HTTP
@@ -170,7 +193,7 @@ app.post('/mcp', async (req: Request, res: Response) => {
         console.log('Initialize request:', { protocolVersion, clientInfo });
         
         result = {
-          protocolVersion: "2024-11-05",
+          protocolVersion: "2025-06-18", // Match what Smithery scanner expects
           capabilities: {
             tools: {},
             resources: {},
@@ -260,6 +283,17 @@ ${analyses.overallCallQuality}
         } else {
           throw new Error(`Unknown tool: ${params?.name}`);
         }
+        break;
+
+      case 'notifications/initialized':
+        // Handle MCP initialized notification (no response needed for notifications)
+        console.log('Client initialized notification received');
+        res.status(204).send(); // No content response for notifications
+        return; // Exit early, don't send JSON-RPC response
+
+      case 'ping':
+        // Handle ping method for connectivity testing
+        result = { status: 'pong' };
         break;
         
       default:
