@@ -17,7 +17,8 @@
   },
   "include": [
     "src/index.ts",
-    "src/http-server.ts"
+    "src/http-server.ts",
+    "src/mcp-http-server.ts"
   ],
   "exclude": [
     "node_modules",

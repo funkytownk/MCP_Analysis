@@ -32,4 +32,4 @@ COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 
 # Start the HTTP MCP server
-CMD ["node", "dist/http-server.js"]
+CMD ["node", "dist/mcp-http-server.js"]

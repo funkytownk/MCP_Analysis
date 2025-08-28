@@ -5,4 +5,4 @@ build:
 startCommand:
   type: "http"
   port: 3000
-  path: "/sse"
+  path: "/mcp"
