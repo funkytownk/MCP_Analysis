@@ -106,257 +106,63 @@ function calculateProspectScore(transcript: string): number {
   return Math.min(score, 200);
 }
 
-function analyzeOverallCallQuality(transcript: string): string {
-  const contactInfo = extractContactInfo(transcript);
-  const financialInfo = extractFinancialInfo(transcript);
-  const age = extractAge(transcript);
-  
-  // Estimate speaking time distribution
-  const words = transcript.split(' ').length;
-  const prospectWordsEstimate = Math.round(words * 0.3); // Estimate 30% prospect, 70% salesperson
-  const salespersonWordsEstimate = words - prospectWordsEstimate;
-  
-  return `***Salesperson Performance***
+// Comprehensive Gold IRA Sales Analysis Function
+function generateComprehensiveAnalysis(transcript: string): string {
+  return `You are a world-class sales expert and transcript analysis engine, combining the best elements of Jordan Belfort's **Straight Line Method** and Michael Oliver's **Natural Selling.** Your primary objective is to dissect this precious metals sales call transcript and generate a **comprehensive, hyper-detailed lead card** that will empower brokers to close the prospect in their next interaction.
 
--- Speaking Time Distribution --
+Your mission is to mine the call for **every shred of actionable intelligence**. Picture yourself as a strategist who needs to understand the prospect more deeply than they understand themselves—revealing their fears, motivations, financial nuances, emotional triggers, and anything that can be leveraged to maximize the chance of closing the sale.
 
-- Salesperson: ~${Math.round((salespersonWordsEstimate / words) * 100)}%
-- Prospect: ~${Math.round((prospectWordsEstimate / words) * 100)}%
-- Analysis: ${salespersonWordsEstimate > prospectWordsEstimate * 2 ? 'The salesperson dominated the conversation, which could have been balanced with more prospect engagement.' : 'Good balance between speaking and listening.'}
+Additionally, anywhere you provide **recommendations** (such as coaching or strategies for addressing objections), you must also explain **why** you are making that recommendation and include a **brief, practical example**. For instance, rather than just "craft a compelling narrative," you might say: "Tell a story that relates to their feelings of uncertainty about future market conditions, and show how gold investments historically provided a sense of control and security."
 
--- Unnecessary Words Count --
+Analyze this transcript and provide your findings in a comprehensive analysis format covering:
 
-* ${transcript.includes('um') || transcript.includes('uh') ? 'Moderate use of filler words detected.' : 'Low, the salesperson was concise and professional.'}
+### 1. **Extract and Organize Core Information**
 
--- Speaking vs. Listening Balance --
+#### a) Prospect Details
+* Capture the prospect's core information: full name, email, phone, address, significant financial accounts, work history, family details, and financial capability level.
+* Summarize the call in **extreme detail**, explaining what the prospect said and the salesperson's responses. Reveal how each piece of info might affect their buying decision.
+* Include any relevant notes and background details (e.g. children going to college, other stressors, etc.).
+* Classify the prospect's position in the sales process (e.g., early curiosity, mid-stage with specific objections, near closing, etc.).
 
-* ${salespersonWordsEstimate > prospectWordsEstimate * 2.5 ? 'The salesperson could have allowed more space for the prospect to express their needs and concerns.' : 'Good balance maintained between explaining products and listening to prospect needs.'}
+#### b) Psychological Analysis
+* Identify the prospect's "hot buttons" (deep emotional drivers such as fear of inflation, distrust of traditional banking, desire for control over finances, retirement security, etc.).
+* Elucidate the emotional undercurrents and personal motivations behind these hot buttons.
+* Include the **reason for interest** in gold/metals and the **prospect_score** (out of 200), along with a **rationale** justifying the score.
+* Pinpoint any **explicit** or **implicit** objections and provide **tailored**, highly specific rebuttals or next steps to address them.
+* Describe the decision-making style, urgency level, trust level, interest level, tone, and psychological profile.
+* Wherever possible, clarify **why** your rebuttal or insight addresses their concern, and give a **short example** of how to use it in a conversation.
 
--- Question-to-Statement Ratio --
+### 2. **Custom Action Plan**
+* Propose a **step-by-step** follow-up strategy, including precise talking points, recommended tone, urgency triggers (e.g., referencing timely market changes or recent Fed decisions), and an ironclad closing strategy.
+* Include recommended emails to send, to-do items, rapport-building suggestions, things to avoid, and a custom urgency strategy.
+* Indicate **why** each action is critical and how it links directly to the prospect's objections or emotional drivers.
+* Provide **examples** of how to phrase key statements or questions.
 
-* ${(transcript.match(/\?/g) || []).length > 5 ? 'Good use of questions to engage the prospect and uncover needs.' : 'The salesperson leaned heavily on statements. Incorporating more questions would help uncover deeper concerns and tailor recommendations.'}
+### 3. **Salesperson Performance Metrics**
+* Analyze **speaking time distribution** (salesperson vs. prospect).
+* Report the **question-to-statement ratio**, any key filler words, or tone shifts.
+* Note how many times the salesperson attempted to close and whether those attempts were effective.
+* Provide **actionable coaching** recommendations.
+  * Base your advice on Jordan Belfort's **Straight Line Method** and Michael Oliver's **Natural Selling**.
+  * Always explain **why** the recommendation is valuable.
+  * Provide a **short, practical example** of how to implement it (e.g., "Use emotional framing like: 'Imagine the peace of mind knowing this is protected from market chaos…'").
 
--- Response Delay --
+### 4. **Follow-Up Scheduling**
+* Create a **follow-up event summary**, including a clear name, conversation highlights, emotional and tactical factors, and a closing plan.
+* Record the **date/time of the next follow-up** (if set) or recommend one based on urgency and lead context.
+* Include the original call's **date and time** for timeline accuracy.
 
-* Quick responses were given, maintaining engagement throughout the call.
+### 5. **Depth and Granularity**
+* Every data point must be paired with **rationale**: why it matters, what it tells us, and how it can be used.
+* Treat this analysis as a **sales strategist's intelligence report** — not a CRM note. This should feel like a tool that **arms a closer** with everything they need to succeed.
+* Prioritize clarity, depth, and **tactical usability**.
 
--- Closing Techniques Effectiveness --
+**Transcript to Analyze:**
+${transcript}
 
-* ${transcript.toLowerCase().includes('ready') || transcript.toLowerCase().includes('start') ? 'Effective closing technique used, asking for commitment while maintaining a consultative approach.' : 'Soft closing technique utilized, keeping the conversation open-ended without pressuring the prospect.'}`;
+Provide a comprehensive analysis covering all these areas with specific, actionable intelligence and detailed reasoning for every recommendation.`;
 }
 
-function identifyCustomerProfile(transcript: string): string {
-  const contactInfo = extractContactInfo(transcript);
-  const financialInfo = extractFinancialInfo(transcript);
-  const age = extractAge(transcript);
-  const prospectScore = calculateProspectScore(transcript);
-  
-  // Extract health information
-  const healthMatch = transcript.match(/(?:health|surgery|medical|condition|injury|transplant|memory|balance)/gi);
-  
-  // Determine investment experience
-  const experienceLevel = financialInfo.investments.length >= 3 ? 'Experienced' : 
-                         financialInfo.investments.length >= 1 ? 'Moderate' : 'Beginner';
-  
-  // Determine risk tolerance
-  const riskTolerance = transcript.toLowerCase().includes('safe') || transcript.toLowerCase().includes('secure') ? 'Conservative' :
-                       transcript.toLowerCase().includes('growth') || transcript.toLowerCase().includes('aggressive') ? 'Moderate to Aggressive' : 'Conservative to Moderate';
-
-  return `***Summary of Prospect Information***
-
-* Name: ${contactInfo.name || '[Name not clearly identified]'}
-* Phone: ${contactInfo.phone || '[Phone not provided]'}  
-* Email: ${contactInfo.email || '[Email not provided]'}
-* Location: ${contactInfo.location || '[Location not specified]'}
-* Age: ${age || '[Age not mentioned]'}
-* Additional details: ${healthMatch && healthMatch.length > 0 ? `Health: ${healthMatch.join(', ')} mentioned in conversation.` : 'No specific health concerns mentioned.'}
-
--- Financials --
-
-${financialInfo.amounts.length > 0 ? 
-  financialInfo.amounts.map(amount => `* Has ${amount} in liquid assets/investments.`).join('\n') :
-  '* Financial details not fully disclosed in this conversation.'}
-${financialInfo.investments.length > 0 ? 
-  `* Current investments include: ${financialInfo.investments.join(', ')}.` : ''}
-* Investment experience level: ${experienceLevel}
-* Risk tolerance: ${riskTolerance}
-${financialInfo.timeline ? `* Timeline: ${financialInfo.timeline}` : ''}
-
--- Metals Experience --
-
-* ${transcript.toLowerCase().includes('gold') || transcript.toLowerCase().includes('silver') ? 'Has expressed interest in precious metals investing.' : 'New to precious metals investing.'}
-* ${transcript.toLowerCase().includes('coin') || transcript.toLowerCase().includes('bar') ? 'Familiar with different forms of precious metals (coins vs bars).' : 'Learning about precious metals investment options.'}
-
--- Investment Experience --
-
-* Experience level: ${experienceLevel} investor
-* ${transcript.toLowerCase().includes('2008') || transcript.toLowerCase().includes('market crash') ? 'Has experienced market downturns and volatility.' : 'Investment history not fully detailed.'}
-* Current outlook: ${transcript.toLowerCase().includes('cautious') || transcript.toLowerCase().includes('safe') ? 'Cautious and security-focused' : 'Open to investment opportunities'}
-
--- Prospect Score: ${prospectScore}/200 --
-
-* ${prospectScore >= 160 ? 'Excellent prospect with strong qualification indicators.' : 
-   prospectScore >= 120 ? 'Good prospect with solid potential for conversion.' :
-   prospectScore >= 80 ? 'Moderate prospect requiring additional qualification.' :
-   'Requires significant qualification and nurturing.'}
-
--- Prospect's Position in the Sales Process --
-
-* Stage: ${prospectScore >= 150 ? 'Ready to move forward with proper guidance.' : 
-          prospectScore >= 100 ? 'In consideration phase, needs additional information.' :
-          'Early stage, requires education and relationship building.'}
-* ${transcript.toLowerCase().includes('research') || transcript.toLowerCase().includes('think') ? 'Prospect wants to research and consider options before deciding.' : 'Prospect appears ready for next steps in the process.'}
-
--- Psychological Profile --
-
-* Decision-making style: ${transcript.toLowerCase().includes('wife') || transcript.toLowerCase().includes('spouse') || transcript.toLowerCase().includes('family') ? 'Family-influenced decision maker' : 'Independent decision maker'}
-* Communication preference: ${transcript.length > 1000 ? 'Prefers detailed information and thorough explanations' : 'Prefers concise, direct communication'}
-* Trust building: ${transcript.toLowerCase().includes('comfortable') || transcript.toLowerCase().includes('trust') ? 'Building good rapport and trust' : 'Requires additional trust-building efforts'}`;
-}
-
-function assessQualificationLevel(transcript: string): string {
-  const financialInfo = extractFinancialInfo(transcript);
-  const age = extractAge(transcript);
-  const score = calculateProspectScore(transcript);
-  
-  const qualificationFactors = {
-    assets: financialInfo.amounts.some(amount => parseInt(amount.replace(/[,$k]/gi, '')) >= 50) ? 'Qualified' : 'Needs Assessment',
-    age: age && age >= 50 ? 'Optimal' : age && age >= 40 ? 'Good' : 'Marginal',
-    timeline: transcript.toLowerCase().includes('retire') ? 'Appropriate' : 'Unclear',
-    authority: transcript.toLowerCase().includes('wife') || transcript.toLowerCase().includes('spouse') ? 'Joint Decision' : 'Individual Authority'
-  };
-  
-  return `-- Qualification Assessment --
-
-* Minimum investable assets: ${qualificationFactors.assets}
-* Age and retirement timeline: ${qualificationFactors.age} (Age: ${age || 'Not specified'})  
-* Investment sophistication: ${financialInfo.investments.length >= 2 ? 'Experienced' : 'Developing'}
-* Decision-making authority: ${qualificationFactors.authority}
-* Timeline urgency: ${transcript.toLowerCase().includes('soon') ? 'High' : transcript.toLowerCase().includes('year') ? 'Moderate' : 'Low'}
-
-Qualification Score: ${Math.round(score/2)}/100
-
-Recommended Next Steps:
-${score >= 160 ? '• Proceed with investment recommendations and account setup\n• Schedule follow-up to finalize investment allocation\n• Prepare documentation and compliance materials' :
-  score >= 120 ? '• Provide additional education on precious metals benefits\n• Address any remaining concerns or objections\n• Schedule follow-up to review investment options' :
-  '• Focus on relationship building and education\n• Qualify financial capacity and investment timeline\n• Nurture with educational content and market updates'}`;
-}
-
-function evaluateComplianceAdherence(transcript: string): string {
-  const riskDisclosures = transcript.toLowerCase().includes('risk') || transcript.toLowerCase().includes('volatility');
-  const feeTransparency = transcript.toLowerCase().includes('fee') || transcript.toLowerCase().includes('cost');
-  const suitabilityDiscussion = transcript.toLowerCase().includes('suitable') || transcript.toLowerCase().includes('appropriate');
-  const professionalConduct = !transcript.toLowerCase().includes('guarantee') && !transcript.toLowerCase().includes('promise');
-  
-  return `-- Compliance Review --
-
-Risk Disclosures: ${riskDisclosures ? '✓ Appropriate risk discussions noted' : '⚠ Risk disclosures should be emphasized'}
-Fee Transparency: ${feeTransparency ? '✓ Fees and costs discussed' : '⚠ Fee structure should be clearly explained'}  
-Suitability Assessment: ${suitabilityDiscussion ? '✓ Suitability considerations addressed' : '⚠ Suitability determination needed'}
-Professional Conduct: ${professionalConduct ? '✓ Professional approach maintained' : '⚠ Review language for compliance issues'}
-
-Regulatory Compliance Status: ${(riskDisclosures && feeTransparency && suitabilityDiscussion && professionalConduct) ? 'Compliant' : 'Needs Attention'}
-
-Recommendations:
-• Ensure all risk disclosures are comprehensive and documented
-• Provide clear fee schedule and total cost breakdown  
-• Complete formal suitability assessment and documentation
-• Follow up with required compliance documentation
-• Review all recommendations against customer's stated objectives and risk tolerance`;
-}
-
-function identifyFollowUpActions(transcript: string): string {
-  const contactInfo = extractContactInfo(transcript);
-  const urgencyLevel = transcript.toLowerCase().includes('soon') || transcript.toLowerCase().includes('ready') ? 'High' : 
-                      transcript.toLowerCase().includes('week') || transcript.toLowerCase().includes('month') ? 'Medium' : 'Standard';
-  
-  const nextBusinessDay = new Date();
-  nextBusinessDay.setDate(nextBusinessDay.getDate() + (nextBusinessDay.getDay() === 5 ? 3 : 1));
-  
-  return `***Action Plan***
-
--- Follow-up Date --
-
-* ${nextBusinessDay.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at the same time
-* Priority Level: ${urgencyLevel}
-* Contact Method: Phone call ${contactInfo.phone ? `to ${contactInfo.phone}` : '(number to be confirmed)'}
-
--- Immediate Next Steps (24-48 hours) --
-
-1. Send welcome email with educational materials about precious metals IRAs
-2. Prepare customized investment recommendations based on disclosed financial situation
-3. Schedule follow-up call to address any questions from review materials
-4. Prepare account opening documentation if prospect is ready to proceed
-
--- Information Needed from Prospect --
-
-• Complete contact information verification
-• Total investable assets available for precious metals allocation  
-• Current retirement account details (401k, IRA balances)
-• Investment timeline and retirement goals
-• Risk tolerance assessment completion
-• Decision-making process (individual vs. joint with spouse)
-
--- Documentation to Send --
-
-• Company information packet and credentials
-• Precious metals IRA educational guide
-• Fee schedule and cost breakdown
-• Customer testimonials and case studies
-• Market outlook and precious metals performance data
-
--- Urgency Creation --
-
-* ${transcript.toLowerCase().includes('inflation') ? 'Emphasize inflation protection benefits and current economic conditions' : 'Highlight market timing opportunities and portfolio diversification benefits'}
-* ${transcript.toLowerCase().includes('concern') || transcript.toLowerCase().includes('worry') ? 'Address specific concerns raised about financial security' : 'Reinforce wealth preservation strategies'}
-* Reference current market conditions favoring precious metals allocation
-
--- Overcoming Objections --
-
-* Timing Concerns: ${transcript.toLowerCase().includes('time') || transcript.toLowerCase().includes('wait') ? 'Address timing hesitations with market data and opportunity cost analysis' : 'Reinforce optimal timing for precious metals investment'}
-* Cost Concerns: ${transcript.toLowerCase().includes('cost') || transcript.toLowerCase().includes('fee') ? 'Provide clear fee comparison and long-term value proposition' : 'Proactively address fee structure and value provided'}
-* Decision Process: ${transcript.toLowerCase().includes('wife') || transcript.toLowerCase().includes('spouse') ? 'Offer to include spouse in next conversation and provide materials for joint review' : 'Support individual decision-making with comprehensive information'}`;
-}
-
-function generateStrategicRecommendations(transcript: string): string {
-  const financialInfo = extractFinancialInfo(transcript);
-  const age = extractAge(transcript);
-  const score = calculateProspectScore(transcript);
-  
-  const strategyLevel = score >= 160 ? 'Aggressive' : score >= 120 ? 'Moderate' : 'Conservative';
-  
-  return `-- Strategic Recommendations --
-
-Optimal Approach: ${strategyLevel} engagement strategy based on qualification score of ${score}/200
-
-Product Recommendations:
-${age && age >= 55 ? '• Focus on IRA-eligible precious metals for tax advantages' : '• Present both IRA and cash purchase options'}
-${financialInfo.amounts.length > 0 ? '• Recommend 10-20% portfolio allocation to precious metals based on disclosed assets' : '• Start with educational approach to uncover financial capacity'}
-• ${transcript.toLowerCase().includes('gold') ? 'Emphasize gold products as primary interest area' : transcript.toLowerCase().includes('silver') ? 'Highlight silver opportunities and affordability' : 'Present balanced gold/silver allocation (60/40 or 70/30)'}
-
-Timing Strategy:
-• ${transcript.toLowerCase().includes('soon') || transcript.toLowerCase().includes('ready') ? 'Strike while interest is high - schedule immediate follow-up' : 'Build urgency through educational content and market updates'}
-• Leverage current economic conditions and precious metals market positioning
-• ${transcript.toLowerCase().includes('research') ? 'Support research process with comprehensive materials' : 'Focus on decision facilitation and next steps'}
-
-Risk Mitigation:
-• Address all compliance requirements proactively
-• Provide clear documentation of suitability and risk acknowledgment
-• Ensure fee transparency and total cost understanding
-• Follow up with written summaries of all conversations
-
-Competitive Advantages:
-• Emphasize company stability and track record
-• Highlight customer service and education approach  
-• Demonstrate transparent fee structure compared to competitors
-• Provide references and testimonials from similar clients
-
-Relationship Building:
-• ${transcript.toLowerCase().includes('family') || transcript.toLowerCase().includes('spouse') ? 'Include family members in decision process and communications' : 'Build trust through consistent, professional follow-up'}
-• Maintain regular contact with market updates and educational content
-• Position as trusted advisor rather than salesperson
-• Create long-term relationship beyond initial transaction`;
-}
 
 // Export server creation function for Smithery CLI
 export default function createServer({
@@ -366,7 +172,7 @@ export default function createServer({
 }) {
   const server = new Server({
     name: "goldira-analysis-mcp",
-    version: "2.0.0",
+    version: "3.0.0",
   }, {
     capabilities: {
       tools: {},
@@ -379,7 +185,7 @@ export default function createServer({
       tools: [
         {
           name: "analyze_goldira_transcript",
-          description: "Comprehensive Gold IRA sales call transcript analysis with detailed prospect profiling, scoring, and actionable recommendations",
+          description: "World-class sales expert transcript analysis combining Jordan Belfort's Straight Line Method and Michael Oliver's Natural Selling. Generates hyper-detailed lead cards with psychological analysis, objection handling, and tactical recommendations for maximum closing potential.",
           inputSchema: {
             type: "object",
             properties: {
@@ -406,34 +212,8 @@ export default function createServer({
     const parsed = z.object({ transcript: z.string() }).parse(args);
     const { transcript } = parsed;
 
-    // Execute the 6 analysis functions in strategic order: 2→3→4→5→6→1
-    const analyses = {
-      customerProfile: identifyCustomerProfile(transcript),
-      qualificationLevel: assessQualificationLevel(transcript),
-      complianceAdherence: evaluateComplianceAdherence(transcript),
-      followUpActions: identifyFollowUpActions(transcript),
-      strategicRecommendations: generateStrategicRecommendations(transcript),
-      overallCallQuality: analyzeOverallCallQuality(transcript)
-    };
-
-    const fullAnalysis = `
-# Comprehensive Gold IRA Sales Call Analysis
-
-${analyses.customerProfile}
-
-${analyses.qualificationLevel}
-
-${analyses.complianceAdherence}
-
-${analyses.followUpActions}
-
-${analyses.strategicRecommendations}
-
-${analyses.overallCallQuality}
-
----
-*Analysis complete. This comprehensive assessment provides specific prospect details, qualification scoring, compliance review, and actionable next steps for successful follow-up.*
-`;
+    // Generate comprehensive sales analysis using world-class sales expert prompt
+    const fullAnalysis = generateComprehensiveAnalysis(transcript);
 
     return {
       content: [
