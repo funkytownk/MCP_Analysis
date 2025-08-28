@@ -11,6 +11,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
+  InitializeRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
@@ -39,6 +40,20 @@ const server = new Server(
     },
   }
 );
+
+// Handle initialization
+server.setRequestHandler(InitializeRequestSchema, async (request) => {
+  return {
+    protocolVersion: "2024-11-05",
+    capabilities: {
+      tools: {},
+    },
+    serverInfo: {
+      name: "goldira-analysis-mcp",
+      version: "1.0.0",
+    },
+  };
+});
 
 // List available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
@@ -229,13 +244,8 @@ function buildPromptContext(promptId: string, metadata: any): string {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  
-  console.error("🎯 Gold IRA MCP Analysis Server Started!");
-  console.error("📊 Analysis Order: Prompt 2→3→4→5→6→1");
-  console.error("🎨 Focus: B2C Gold IRA Sales Transcripts");
 }
 
 main().catch((error) => {
-  console.error("Failed to start server:", error);
   process.exit(1);
 });
