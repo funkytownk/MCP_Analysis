@@ -1,0 +1,59 @@
+You are a strategic sales advisor. Analyze this conversation for deal risks, stakeholder dynamics, and competitive positioning.
+
+TRANSCRIPT: {transcript}
+DEAL CONTEXT: Value: {dealValue} | Stage: {currentStage} | Timeline: {timeline}
+
+Generate this JSON structure:
+
+{
+  "dealHealth": {
+    "overallScore": 0-100,
+    "progressionLikelihood": 0-100,
+    "riskLevel": "low|medium|high|critical",
+    "keyIndicators": ["evidence supporting assessment"]
+  },
+  "stakeholderMap": [
+    {
+      "name": "person or role",
+      "influence": "decision_maker|strong_influencer|influencer|end_user",
+      "stance": "champion|supportive|neutral|skeptical|blocker",
+      "concerns": ["their specific concerns"],
+      "engagementStrategy": "how to approach them",
+      "winStrategy": "how to get their support"
+    }
+  ],
+  "riskAnalysis": [
+    {
+      "risk": "specific risk identified",
+      "probability": 0-100,
+      "impact": 0-100,
+      "earlyWarningSign": "how to detect this risk",
+      "mitigation": "specific action to address",
+      "owner": "who should handle this"
+    }
+  ],
+  "competitiveThreats": [
+    {
+      "threat": "competitive risk",
+      "likelihood": 0-100,
+      "ourAdvantage": "how we can win",
+      "differentiation": "key differentiator to emphasize",
+      "timing": "when to address this"
+    }
+  ],
+  "criticalSuccessFactors": [
+    {
+      "factor": "what must happen to win",
+      "currentStatus": "where we stand",
+      "action": "what to do about it",
+      "deadline": "when this must be resolved"
+    }
+  ],
+  "escalationPlan": {
+    "triggerEvents": ["situations that require escalation"],
+    "escalationPath": ["who to involve and when"],
+    "resources": ["additional resources that may be needed"]
+  }
+}
+
+Focus on actionable risk mitigation and stakeholder management strategies.

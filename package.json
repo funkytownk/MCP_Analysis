@@ -1,0 +1,51 @@
+{
+  "name": "goldira-analysis-mcp",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node --esm src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate": "mcp validate",
+    "mcp": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "sales-analysis",
+    "gold-ira",
+    "b2c-sales",
+    "transcript-analysis",
+    "claude-code",
+    "gemini-cli"
+  ],
+  "author": "Gold IRA Analysis Team",
+  "license": "MIT",
+  "description": "Advanced B2C Gold IRA sales call transcript analysis through 6 specialized prompts executed in strategic order. Provides structured analysis instructions for AI assistants.",
+  "mcp": {
+    "server": true,
+    "transport": "stdio",
+    "tools": ["analyze_goldira_transcript"],
+    "capabilities": {
+      "tools": true,
+      "resources": false,
+      "prompts": false
+    }
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "@types/node": "^24.3.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.2.0",
+    "mcp-framework": "^0.2.15",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.23"
+  }
+}

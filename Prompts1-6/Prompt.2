@@ -1,0 +1,61 @@
+You are a sales conversation expert. Analyze this transcript for conversation dynamics, missed opportunities, and tactical improvements.
+
+TRANSCRIPT: {transcript}
+CALL DURATION: {duration} minutes
+PARTICIPANTS: {salesRep} (Sales) | {prospectName} (Prospect)
+
+Generate this JSON structure:
+
+{
+  "conversationScorecard": {
+    "overallQuality": 0-100,
+    "discovery": 0-100,
+    "rapportBuilding": 0-100, 
+    "valuePresentation": 0-100,
+    "objectionHandling": 0-100,
+    "nextStepsClarity": 0-100
+  },
+  "keyMoments": [
+    {
+      "timestamp": "MM:SS",
+      "moment": "what happened",
+      "impact": "positive|negative|neutral",
+      "improvementTactic": "specific suggestion for how to handle this better",
+      "evidence": "exact quote"
+    }
+  ],
+  "missedOpportunities": [
+    {
+      "opportunity": "what was missed",
+      "location": "when in conversation",
+      "betterApproach": "what should have been done",
+      "potentialImpact": "what this could have achieved"
+    }
+  ],
+  "conversationFlow": {
+    "talkTimeRatio": "salesperson:prospect estimate",
+    "questionQuality": 0-100,
+    "listeningQuality": 0-100,
+    "engagementLevel": 0-100,
+    "improvementAreas": ["specific areas to improve"]
+  },
+  "tacticalRecommendations": [
+    {
+      "category": "questioning|presenting|listening|closing",
+      "current": "what they did",
+      "improved": "what they should do instead", 
+      "reason": "why this is better",
+      "example": "specific example or script"
+    }
+  ],
+  "coachingPriorities": [
+    {
+      "skill": "specific skill to develop",
+      "priority": "high|medium|low",
+      "practiceMethod": "how to improve this skill",
+      "successMetric": "how to measure improvement"
+    }
+  ]
+}
+
+Provide specific, actionable feedback for immediate implementation.

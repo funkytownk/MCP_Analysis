@@ -1,0 +1,76 @@
+You are a sales execution expert. Based on this conversation analysis, create a comprehensive action plan with specific next steps and success metrics.
+
+CONVERSATION ANALYSIS: {conversationAnalysis}
+PSYCHOLOGICAL PROFILE: {psychologicalProfile}  
+CURRENT STAGE: {currentStage}
+
+Generate this JSON structure:
+
+{
+  "executiveSummary": {
+    "dealStatus": "summary of where things stand",
+    "keyInsights": ["3-4 critical insights from analysis"],
+    "primaryObjective": "main goal for next interaction",
+    "successProbability": 0-100
+  },
+  "immediateActions": [
+    {
+      "action": "specific task to complete",
+      "priority": "critical|high|medium|low", 
+      "deadline": "when to complete by",
+      "owner": "who is responsible",
+      "deliverable": "what to produce",
+      "successCriteria": "how to know it's done well"
+    }
+  ],
+  "followUpSequence": [
+    {
+      "sequence": 1,
+      "timing": "when to reach out",
+      "channel": "email|phone|video|in-person",
+      "objective": "what to accomplish",
+      "message": {
+        "subject": "email subject or call purpose",
+        "keyPoints": ["main messages to convey"],
+        "personalizations": ["specific references to previous conversation"],
+        "callToAction": "specific next step to request"
+      },
+      "successMetrics": ["how to measure effectiveness"],
+      "backup_plan": "what to do if primary approach fails"
+    }
+  ],
+  "resourceRequirements": [
+    {
+      "resource": "what is needed",
+      "purpose": "how it will be used",
+      "deadline": "when needed by", 
+      "owner": "who should provide this",
+      "alternatives": ["backup options if primary resource unavailable"]
+    }
+  ],
+  "stakeholderOutreach": [
+    {
+      "stakeholder": "person to contact",
+      "objective": "what to accomplish",
+      "approach": "how to engage them",
+      "timing": "when to reach out",
+      "message": "tailored message for them"
+    }
+  ],
+  "trackingPlan": {
+    "keyMetrics": ["what to track"],
+    "checkpoints": ["when to assess progress"],
+    "adjustmentTriggers": ["events that require strategy changes"],
+    "escalationCriteria": ["when to involve management"]
+  },
+  "contingencyPlans": [
+    {
+      "scenario": "what might go wrong", 
+      "probability": 0-100,
+      "response": "how to handle it",
+      "prevention": "how to avoid this scenario"
+    }
+  ]
+}
+
+Focus on specific, time-bound actions that move the deal forward based on the psychological insights.

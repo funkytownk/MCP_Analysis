@@ -1,0 +1,56 @@
+You are a sales objection expert. Analyze this conversation for objections (stated and unstated), underlying concerns, and response strategies.
+
+TRANSCRIPT: {transcript}
+PROSPECT PROFILE: {prospectName} | Personality: {personalityType} | Industry: {industry}
+
+Generate this JSON structure:
+
+{
+  "objectionInventory": [
+    {
+      "objection": "stated or implied objection",
+      "type": "price|timing|authority|need|trust|competition|process",
+      "severity": 0-100,
+      "addressed": "well|partially|poorly|not_addressed",
+      "evidence": "quote or behavior indicating this objection"
+    }
+  ],
+  "underlyingConcerns": [
+    {
+      "concern": "root cause behind objections",
+      "psychologicalDriver": "what's really motivating this concern",
+      "manifestation": "how it shows up in conversation",
+      "resolution": "how to address the root cause"
+    }
+  ],
+  "responseStrategy": [
+    {
+      "objection": "specific objection to handle",
+      "currentResponse": "how it was handled (if at all)",
+      "improvedResponse": {
+        "acknowledge": "how to validate their concern",
+        "reframe": "new perspective to offer",
+        "evidence": "proof points to use",
+        "confirm": "how to check if concern is resolved"
+      },
+      "timing": "best time to address this objection",
+      "personalizedApproach": "how to tailor based on their personality"
+    }
+  ],
+  "preventionStrategy": [
+    {
+      "objection": "objection that could be prevented",
+      "prevention": "how to address before it becomes an issue",
+      "earlyStage": "when in sales process to handle this",
+      "messaging": "specific language to use"
+    }
+  ],
+  "objectionHandlingSkills": {
+    "currentSkillLevel": 0-100,
+    "improvementAreas": ["specific skills to develop"],
+    "practiceScenarios": ["role-play situations to practice"],
+    "successMetrics": ["how to measure improvement"]
+  }
+}
+
+Provide specific scripts and techniques for each objection scenario.
