@@ -1,0 +1,182 @@
+{
+  "sessionId": "c6yzgs3l308",
+  "timestamp": "2025-08-28T04:35:06.893Z",
+  "analysisComplete": true,
+  "results": {
+    "conversationDynamics": {
+      "conversationScorecard": {
+        "overallQuality": 90,
+        "discovery": 100,
+        "rapportBuilding": 90,
+        "valuePresentation": 100,
+        "objectionHandling": 95,
+        "nextStepsClarity": 100
+      },
+      "keyMoments": [
+        {
+          "timestamp": "05:30",
+          "moment": "Client reveals $53K 401k balance and conservative nature",
+          "impact": "positive",
+          "improvementTactic": "Immediately position gold as the ultimate conservative investment",
+          "evidence": "So the actual 401k balance is like 52, almost $53,000... I'm very conservative"
+        },
+        {
+          "timestamp": "12:45",
+          "moment": "Client mentions wanting to leave money to kids",
+          "impact": "positive",
+          "improvementTactic": "Expand on inheritance benefits and tax advantages",
+          "evidence": "I would like to have some to leave with my kids"
+        },
+        {
+          "timestamp": "18:20",
+          "moment": "Client wants to consult financial advisor",
+          "impact": "negative",
+          "improvementTactic": "Address advisor bias more directly with specific examples",
+          "evidence": "I'm gonna call my financial advisor and see what he has to say"
+        }
+      ],
+      "missedOpportunities": [
+        {
+          "opportunity": "Quantify inheritance tax savings",
+          "location": "When discussing leaving money to kids",
+          "betterApproach": "Calculate specific tax savings on $53K inheritance with gold vs cash",
+          "potentialImpact": "Could have strengthened the inheritance value proposition"
+        },
+        {
+          "opportunity": "Address advisor bias with client success story",
+          "location": "When client mentions consulting financial advisor",
+          "betterApproach": "Share specific example of client whose advisor initially objected but later approved",
+          "potentialImpact": "Could have reduced advisor objection concern"
+        }
+      ]
+    },
+    "psychologyProfile": {
+      "profileSummary": "78-year-old conservative retiree who values security and family legacy over growth. Highly analytical and seeks validation from trusted advisors before making financial decisions.",
+      "personalityType": {
+        "primary": "analytical",
+        "confidence": 85,
+        "evidence": [
+          "I'm very conservative about where my money goes",
+          "how do I know that I'm not gonna lose my butt?",
+          "I'm gonna call my financial advisor"
+        ],
+        "decisionStyle": "consensus-based"
+      },
+      "motivationDrivers": [
+        {
+          "driver": "security",
+          "strength": 95,
+          "evidence": "I'm very conservative... I need enough money based on hopefully living to a few more years",
+          "salesImplication": "Position gold as ultimate security and wealth preservation"
+        },
+        {
+          "driver": "legacy",
+          "strength": 80,
+          "evidence": "I would like to have some to leave with my kids",
+          "salesImplication": "Emphasize inheritance benefits and tax advantages"
+        }
+      ]
+    },
+    "strategicQualification": {
+      "qualificationSummary": {
+        "opportunityScore": 72,
+        "recommendation": "proceed_cautiously",
+        "confidence": 75,
+        "keyQualifiers": [
+          "Strong conservative investor profile match",
+          "Clear inheritance planning motivation",
+          "Established rapport and engagement",
+          "Appropriate 401k balance for meaningful rollover"
+        ],
+        "redFlags": [
+          "Advisor dependency could block decision",
+          "No timeline urgency expressed",
+          "May require extensive education cycle"
+        ]
+      },
+      "financial_qualification": {
+        "budget_indicators": {
+          "budget_mentioned": true,
+          "budget_range": "$53,000 401k balance",
+          "funding_source": "401k rollover",
+          "budget_authority": "Client with advisor consultation",
+          "approval_process": "Must consult financial advisor"
+        },
+        "investment_readiness": 70,
+        "price_sensitivity_level": "medium"
+      },
+      "go_no_go_analysis": {
+        "pursue_factors": [
+          "Strong personality fit",
+          "Clear need",
+          "Good rapport"
+        ],
+        "avoid_factors": [
+          "Advisor dependency risk",
+          "No urgency"
+        ],
+        "success_probability": 65,
+        "resource_allocation": "medium",
+        "escalation_required": "Monitor advisor consultation outcome"
+      }
+    },
+    "actionPlan": {
+      "executiveSummary": {
+        "dealStatus": "Qualified prospect with strong fit, pending advisor consultation",
+        "keyInsights": [
+          "Client is ideal demographic - conservative retiree with inheritance goals",
+          "Strong rapport established through respectful, educational approach",
+          "Primary risk is advisor objection - needs proactive management",
+          "Client shows genuine interest but requires validation from authority figure"
+        ],
+        "primaryObjective": "Secure advisor consultation with comprehensive materials provided",
+        "successProbability": 65
+      },
+      "immediateActions": [
+        {
+          "action": "Prepare and send comprehensive advisor packet",
+          "priority": "critical",
+          "deadline": "Within 24 hours",
+          "owner": "Sales agent",
+          "deliverable": "Professional materials package with ROI analysis",
+          "successCriteria": "Client confirms receipt and advisor review scheduled"
+        },
+        {
+          "action": "Follow up to schedule advisor consultation",
+          "priority": "high",
+          "deadline": "Within 48 hours",
+          "owner": "Sales agent",
+          "deliverable": "Scheduled advisor call or meeting",
+          "successCriteria": "Advisor agrees to review materials and discuss"
+        }
+      ]
+    },
+    "dealRiskAssessment": {
+      "dealHealth": {
+        "overallScore": 72,
+        "progressionLikelihood": 65,
+        "riskLevel": "medium",
+        "keyIndicators": [
+          "Strong rapport established",
+          "Clear financial need",
+          "Conservative investor profile match"
+        ]
+      },
+      "riskAnalysis": [
+        {
+          "risk": "Advisor disapproval blocks decision",
+          "probability": 70,
+          "impact": 90,
+          "earlyWarningSign": "Client mentions needing advisor approval",
+          "mitigation": "Prepare professional advisor packet and offer direct communication"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "overallScore": 72,
+    "recommendation": "proceed_cautiously",
+    "primaryObjective": "Secure advisor consultation with comprehensive materials provided",
+    "successProbability": 65
+  }
+}
