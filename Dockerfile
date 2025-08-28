@@ -1,4 +1,4 @@
-FROM node:18-slim AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:18-slim
+FROM node:20-slim
 
 WORKDIR /app
 
@@ -31,5 +31,5 @@ COPY --from=builder /app/dist ./dist
 # Expose port for HTTP server
 EXPOSE 3000
 
-# Start the MCP over HTTP server
-CMD ["node", "dist/mcp-over-http-server.js"]
+# Start the minimal MCP server with full 6-prompt analysis
+CMD ["node", "dist/minimal-server.js"]
