@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -19,7 +19,10 @@
     "src/index.ts",
     "src/http-server.ts",
     "src/mcp-http-server.ts",
-    "src/debug-server.ts"
+    "src/debug-server.ts",
+    "src/minimal-server.ts",
+    "src/smithery-server.ts",
+    "src/mcp-over-http-server.ts"
   ],
   "exclude": [
     "node_modules",
@@ -27,6 +30,7 @@
     "src/server.ts",
     "src/middleware",
     "src/tools", 
-    "src/utils"
+    "src/utils",
+    "src/smithery-server.ts"
   ]
 }

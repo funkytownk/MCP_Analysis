@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/debug-server.js",
+    "start": "node dist/mcp-over-http-server.js",
     "start:stdio": "node dist/index.js",
     "start:http": "node dist/mcp-http-server.js",
-    "dev": "ts-node --esm src/index.ts",
+    "dev": "ts-node --esm src/smithery-server.ts",
     "dev:http": "ts-node --esm src/mcp-http-server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "mcp validate",
@@ -29,7 +29,9 @@
   "mcp": {
     "server": true,
     "transport": "stdio",
-    "tools": ["analyze_goldira_transcript"],
+    "tools": [
+      "analyze_goldira_transcript"
+    ],
     "capabilities": {
       "tools": true,
       "resources": false,
@@ -38,15 +40,16 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
+    "@smithery/sdk": "^1.5.6",
     "@types/node": "^24.3.0",
-    "express": "^4.18.2",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
   }
 }
